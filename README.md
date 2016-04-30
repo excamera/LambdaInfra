@@ -1,6 +1,6 @@
 
 ### Installation ###
-As this is an example of how to use CMake you'll need to download it (http://www.cmake.org/cmake/resources/software.html) or install it via:
+To use CMake you'll need to download it (http://www.cmake.org/cmake/resources/software.html) or install it via:
 ```bash
 (Linux) : sudo apt-get install cmake
 (OS X)  : brew install cmake
@@ -18,7 +18,7 @@ You have to set the following variables
 
 You need to have a adminuser profile in ~/.aws/credentials
 
-Once CMake has been install navigate to the root of the project and issue the following commands:
+Navigate to the root of the project and issue the following commands:
 ```bash
 mkdir build
 cd build
