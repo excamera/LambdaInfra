@@ -1,17 +1,37 @@
 cmake_minimum_required (VERSION 2.8)
-project (CMakeHelloWorld)
+project (helloworld C)
 
 #version number
-set (CMakeHelloWorld_VERSION_MAJOR 1)
-set (CMakeHelloWorld_VERSION_MINOR 0)
+set (helloworld_VERSION_MAJOR 1)
+set (helloworld_VERSION_MINOR 0)
+
+# set commands
+set(CMAKE_LINSTALL_COMMAND ${CMAKE_SOURCE_DIR}/src/lambda/setuplambda.sh)
+set(CMAKE_LUPDATE_COMMAND  ${CMAKE_SOURCE_DIR}/src/lambda/updatelambda.sh)
+set(CMAKE_CHECK_COMMAND    python ${CMAKE_SOURCE_DIR}/src/lambda/test_invoke.py)
 
 #include the subdirectory containing our libs
-add_subdirectory (Hello)
-include_directories(Hello)
+add_subdirectory (src)
+include_directories(src)
+
 #indicate the entry point for the executable
-add_executable (CMakeHelloWorld Hello HelloWorld.cpp)
+#SET(BUILD_SHARED_LIBRARIES OFF)
+#SET(CMAKE_EXE_LINKER_FLAGS "-static")
+add_executable (helloworld src)
+
+# set properties
+set_target_properties(helloworld PROPERTIES LINK_SEARCH_START_STATIC 1)
+set_target_properties(helloworld PROPERTIES LINK_SEARCH_END_STATIC 1)
+set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
+set_target_properties(helloworld PROPERTIES LINKER_LANGUAGE C)
 
 # Indicate which libraries to include during the link process.
-target_link_libraries (CMakeHelloWorld Hello)
+target_link_libraries (helloworld lambda)
 
-install (TARGETS CMakeHelloWorld DESTINATION bin)
+# Install targets
+install (TARGETS helloworld DESTINATION bin)
+
+# Add custom targets
+add_custom_target(check         COMMAND ${CMAKE_CHECK_COMMAND})
+add_custom_target(lambdainstall COMMAND ${CMAKE_LUPDATE_COMMAND})
+add_custom_target(updateinstall COMMAND ${CMAKE_LINSTALL_COMMAND})
