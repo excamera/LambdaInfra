@@ -8,4 +8,3 @@ if(CURL_FOUND)
     set(USE_SYSTEM_CURL ON CACHE BOOL "Use the system curl for faster builds")
 endif()
 add_subdirectory(cpr)
-
