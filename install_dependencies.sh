@@ -1,0 +1,33 @@
+#!/bin/bash
+cd LambdaInfra;
+git submodule update --init --recursive;
+sudo apt-get install build-essential;
+sudo apt-get install zip;
+cd ..;
+wget http://www.cmake.org/files/v3.2/cmake-3.2.2.tar.gz;
+tar xf cmake-3.2.2.tar.gz;
+cd cmake-3.2.2;
+./configure;
+make;
+sudo make install;
+cd ..;
+sudo apt-get -y install python-pip;
+sudo pip install awscli;
+sudo apt-get install libcurl4-openssl-dev;
+wget http://pocoproject.org/releases/poco-1.7.2/poco-1.7.2.tar.gz;
+tar xvzf poco-1.7.2.tar.gz;
+cd poco-1.7.2;
+./configure;
+make;
+sudo cp -r lib/Linux/x86_64/ /usr/local/lib/;
+sudo cp -r Foundation/include/Poco/ /usr/local/include/;
+cd ..;
+wget https://github.com/boostorg/build/releases/download/2014.10/boost-build-2014-10.tar.bz2;
+tar xvf boost-build-2014-10.tar.bz2;
+cd boost-build;
+sudo ./bootstrap.sh
+sudo ./b2 install;
+cd ..;
+export LD_LIBRARY_PATH="/usr/local/lib/x86_64/";
+aws configure;
+echo "Successfully Installed all dependencies. Make sure to create adminuser profile in ~/.aws/credentials";
