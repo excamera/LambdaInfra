@@ -18,7 +18,7 @@
 #include "openssl/hmac.h"
 
 #include <cpr/cpr.h>
-
+#include "json.hpp"
 namespace AWSV4 {
     const std::string ENDL{"\n"};
     const std::string POST{"POST"};
@@ -72,7 +72,7 @@ namespace AWSV4 {
    };
 
    RequestParams get_request_params();
-   const std::string invoke_request(AWSV4::RequestParams req_params);    
+   std::string invoke_request(AWSV4::RequestParams req_params);    
 }
 
 #endif

@@ -58,7 +58,8 @@ include_directories("/usr/include/openssl")
 include_directories("/usr/local/include" ${CPR_INCLUDE_DIRS})
 add_executable(runcpp src/signinvoke/main.cpp src/signinvoke/awsv4.cpp src/signinvoke/awsv4.hpp)
 target_link_libraries(runcpp crypto PocoNet PocoFoundation ${CPR_LIBRARIES})
-
+add_executable(count_concurrent src/signinvoke/count_concurrent.cpp src/signinvoke/awsv4.cpp src/signinvoke/awsv4.hpp)
+target_link_libraries(count_concurrent crypto PocoNet PocoFoundation ${CPR_LIBRARIES})
 
 #indicate the entry point for the executable
 #SET(BUILD_SHARED_LIBRARIES OFF)

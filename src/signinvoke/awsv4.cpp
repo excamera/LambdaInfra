@@ -291,7 +291,7 @@ RequestParams get_request_params() {
     return req_params;
 }
 
-const std::string invoke_request(AWSV4::RequestParams req_params){
+std::string invoke_request(AWSV4::RequestParams req_params){
     auto response = cpr::Post(req_params.url, req_params.header, req_params.body);
     return response.text;
 }
