@@ -17,6 +17,8 @@
 #include "openssl/sha.h"
 #include "openssl/hmac.h"
 
+#include <cpr/cpr.h>
+
 namespace AWSV4 {
     const std::string ENDL{"\n"};
     const std::string POST{"POST"};
@@ -63,7 +65,14 @@ namespace AWSV4 {
                                           const std::string region,
                                           const std::string service,
                                           const std::string string_to_sign) noexcept;
-    
+   struct RequestParams{
+	cpr::Url url;
+	cpr::Header header;
+	cpr::Body body;	
+   };
+
+   RequestParams get_request_params();
+   const std::string invoke_request(AWSV4::RequestParams req_params);    
 }
 
 #endif
