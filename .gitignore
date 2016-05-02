@@ -8,3 +8,5 @@ CMakeHelloWorld
 *.a
 **/*.a
 build/**
+setup_env_var.sh
+src/lambda/sign_invoke.pyc

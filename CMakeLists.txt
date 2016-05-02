@@ -7,6 +7,7 @@ set (helloworld_VERSION_MINOR 0)
 set(CMAKE_LINSTALL_COMMAND ${CMAKE_BINARY_DIR}/src/setuplambda.sh)
 set(CMAKE_LUPDATE_COMMAND  ${CMAKE_BINARY_DIR}/src/updatelambda.sh)
 set(CMAKE_CHECK_COMMAND    python ${CMAKE_SOURCE_DIR}/src/lambda/test_invoke.py)
+set(CMAKE_CHECKCPP_COMMAND ${CMAKE_BINARY_DIR}/runcpp)
 set(ROLE		   $ROLE)
 set(LAMBDA_NAME		   $LAMBDA_NAME)
 
@@ -55,8 +56,8 @@ add_subdirectory(opt)
 link_directories("/usr/local/lib/x86_64/")
 include_directories("/usr/include/openssl")
 include_directories("/usr/local/include" ${CPR_INCLUDE_DIRS})
-add_executable(rahul src/signinvoke/main.cpp src/signinvoke/awsv4.cpp src/signinvoke/awsv4.hpp)
-target_link_libraries(rahul crypto PocoNet PocoFoundation ${CPR_LIBRARIES})
+add_executable(runcpp src/signinvoke/main.cpp src/signinvoke/awsv4.cpp src/signinvoke/awsv4.hpp)
+target_link_libraries(runcpp crypto PocoNet PocoFoundation ${CPR_LIBRARIES})
 
 
 #indicate the entry point for the executable
@@ -79,6 +80,7 @@ install (TARGETS helloworld DESTINATION bin)
 
 # Add custom targets
 add_custom_target(check         COMMAND ${CMAKE_CHECK_COMMAND})
+add_custom_target(checkcpp       COMMAND ${CMAKE_CHECKCPP_COMMAND})
 add_custom_target(lambdainstall COMMAND ${CMAKE_LINSTALL_COMMAND})
 add_custom_target(lambdaupdate COMMAND ${CMAKE_LUPDATE_COMMAND})
 
@@ -92,3 +94,5 @@ configure_file (
   "${CMAKE_SOURCE_DIR}/src/lambda/updatelambda.sh"
   "${CMAKE_BINARY_DIR}/src/updatelambda.sh"
  )
+
+

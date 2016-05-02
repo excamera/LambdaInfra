@@ -1,5 +1,5 @@
 #!/bin/bash
-cd LambdaInfra;
+sudo apt-get update;
 git submodule update --init --recursive;
 sudo apt-get install build-essential;
 sudo apt-get install zip;
