@@ -11,8 +11,10 @@ int print_final() {
 
     const std::string region{"eu-west-1"};
     const std::string service{"lambda"};
-
-    const std::string base_uri{"https://lambda.eu-west-1.amazonaws.com/2015-03-31/functions/HelloWorld/invocations"};
+    const std::string lambda_name(std::getenv("LAMBDA_NAME"));	
+    std::string base_uri{"https://lambda.eu-west-1.amazonaws.com/2015-03-31/functions/"};
+    base_uri += lambda_name;
+    base_uri += std::string("/invocations");
     const std::string query_args{""};
     const std::string uri_str{base_uri + "?" + query_args};
 
@@ -70,9 +72,8 @@ int print_final() {
     auto algorithm = std::string("AWS4-HMAC-SHA256");
     auto authorization_header = algorithm + " Credential=" + access_key + "/"+credential_scope + ", SignedHeaders=" + signed_headers + ", Signature=" + signature;    
     auto payloady = cpr::Body{"{}"};
-    auto endpoint = "https://lambda.eu-west-1.amazonaws.com/2015-03-31/functions/HelloWorld/invocations";
    
-    auto url = cpr::Url{endpoint} ;
+    auto url = cpr::Url{base_uri} ;
     auto header = cpr::Header{{"host", "lambda.eu-west-1.amazonaws.com"}, {"Content-type", "application/x-amz-json-1.0"},{"x-amz-date", amz_date}, {"Authorization", authorization_header}};
     auto response = cpr::Post(url, header, payloady);
     std::cout << response.text;
